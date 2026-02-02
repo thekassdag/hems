@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Themed Question Bank Builder - Haramaya University</title>
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@300;400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        'forest-green': "#03941f",
+                        'black-forest': "#034b11",
+                        'silver-border': "#bfbfbf",
+                        'carbon-black': "#222222",
+                        'main-bg': "#fdfdfd"
+                    },
+                    fontFamily: {
+                        display: "Epilogue"
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.25rem",
+                        lg: "0.5rem",
+                        xl: "0.75rem",
+                        full: "9999px"
+                    }
+                }
+            }
+        };
+    </script>
+    <style type="text/tailwindcss">
+        @layer base {
+            body {
+                @apply bg-main-bg text-carbon-black font-display antialiased;
+            }
+            input[type="text"], textarea, select {
+                @apply border-silver-border text-carbon-black focus:ring-forest-green focus:border-forest-green placeholder-gray-400;
+            }
+        }
+        .card-flat {
+            @apply bg-white border border-silver-border shadow-none;
+        }
+    </style>
+    <style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+
+<body class="bg-main-bg">
+    <div class="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden pb-8">
+        <header class="bg-black-forest sticky top-0 z-50">
+            <div class="px-4 py-4 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="h-10 w-10 bg-white/10 flex items-center justify-center rounded-lg text-white">
+                        <span class="material-symbols-outlined text-[24px]">verified_user</span>
+                    </div>
+                    <div>
+                        <h1 class="text-[10px] font-bold uppercase tracking-widest text-white/60 leading-none mb-1">
+                            Authenticated Instructor</h1>
+                        <p class="text-sm font-bold text-white">Dr. Abebe Kebede</p>
+                    </div>
+                </div>
+                <button class="text-xs font-bold text-red-200 flex items-center gap-1">
+                    <span class="material-symbols-outlined text-[18px]">logout</span>
+                    Logout
+                </button>
+            </div>
+        </header>
+        <div class="p-4">
+            <div class="card-flat rounded-xl p-5 flex flex-col gap-4">
+                <div class="space-y-1">
+                    <span
+                        class="text-[10px] font-bold text-forest-green uppercase bg-forest-green/10 px-2 py-0.5 rounded">Assigned
+                        Course</span>
+                    <h2 class="text-xl font-bold text-black-forest leading-tight">Software Design Patterns</h2>
+                </div>
+                <div class="grid grid-cols-2 gap-4 pt-4 border-t border-silver-border/40">
+                    <div class="bg-gray-50 rounded-lg p-3">
+                        <p class="text-[10px] text-gray-500 uppercase font-bold mb-1">Allocated Questions</p>
+                        <div class="flex items-baseline gap-1">
+                            <p class="text-2xl font-bold text-black-forest">10</p>
+                            <span class="text-[10px] text-gray-400 font-medium">Items</span>
+                        </div>
+                    </div>
+                    <div class="bg-forest-green/5 rounded-lg p-3">
+                        <p class="text-[10px] text-forest-green uppercase font-bold mb-1">Current Submissions</p>
+                        <div class="flex items-baseline gap-1">
+                            <p class="text-2xl font-bold text-forest-green">02</p>
+                            <span class="text-[10px] text-forest-green/60 font-medium">Added</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="w-full bg-gray-100 h-1.5 rounded-full overflow-hidden">
+                    <div class="bg-forest-green h-full rounded-full" style="width: 20%"></div>
+                </div>
+            </div>
+        </div>
+        <main class="px-4 space-y-6">
+            <div class="card-flat rounded-xl p-5">
+                <div class="flex items-center gap-2 mb-6">
+                    <span class="material-symbols-outlined text-black-forest text-[20px]">post_add</span>
+                    <h3 class="text-base font-bold text-black-forest">New MCQ Entry</h3>
+                </div>
+                <form class="space-y-5">
+                    <div class="space-y-2">
+                        <div class="flex items-center justify-between">
+                            <label class="text-[11px] font-bold text-gray-500 uppercase tracking-wider">Question
+                                Stem</label>
+                            <button
+                                class="flex items-center gap-1.5 px-3 py-1.5 bg-gray-100 hover:bg-gray-200 text-carbon-black rounded-lg text-xs font-bold transition-colors"
+                                type="button">
+                                <span class="material-symbols-outlined text-[16px]">image</span>
+                                Upload Image
+                            </button>
+                        </div>
+                        <textarea class="w-full rounded-lg text-sm min-h-[100px]"
+                            placeholder="Type the question content here..."></textarea>
+                    </div>
+                    <div class="space-y-3">
+                        <label class="text-[11px] font-bold text-gray-500 uppercase tracking-wider">Options</label>
+                        <div class="grid gap-3" id="options-container">
+                            <div class="flex items-center gap-2">
+                                <span
+                                    class="h-10 w-10 shrink-0 flex items-center justify-center rounded-lg border border-silver-border bg-gray-50 text-xs font-bold text-gray-500">A</span>
+                                <input class="w-full h-11 rounded-lg text-sm" placeholder="Option text" type="text"
+                                    value="Adapter Pattern" />
+                                <button
+                                    class="h-10 w-10 shrink-0 flex items-center justify-center text-gray-300 hover:text-red-500 transition-colors"
+                                    type="button">
+                                    <span class="material-symbols-outlined text-[20px]">delete</span>
+                                </button>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <span
+                                    class="h-10 w-10 shrink-0 flex items-center justify-center rounded-lg border border-silver-border bg-gray-50 text-xs font-bold text-gray-500">B</span>
+                                <input class="w-full h-11 rounded-lg text-sm" placeholder="Option text" type="text"
+                                    value="Bridge Pattern" />
+                                <button
+                                    class="h-10 w-10 shrink-0 flex items-center justify-center text-gray-300 hover:text-red-500 transition-colors"
+                                    type="button">
+                                    <span class="material-symbols-outlined text-[20px]">delete</span>
+                                </button>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <span
+                                    class="h-10 w-10 shrink-0 flex items-center justify-center rounded-lg border border-silver-border bg-gray-50 text-xs font-bold text-gray-500">C</span>
+                                <input class="w-full h-11 rounded-lg text-sm" placeholder="Option text" type="text"
+                                    value="Facade Pattern" />
+                                <button
+                                    class="h-10 w-10 shrink-0 flex items-center justify-center text-gray-300 hover:text-red-500 transition-colors"
+                                    type="button">
+                                    <span class="material-symbols-outlined text-[20px]">delete</span>
+                                </button>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <span
+                                    class="h-10 w-10 shrink-0 flex items-center justify-center rounded-lg border border-silver-border bg-gray-50 text-xs font-bold text-gray-500">D</span>
+                                <input class="w-full h-11 rounded-lg text-sm" placeholder="Option text" type="text"
+                                    value="Proxy Pattern" />
+                                <button
+                                    class="h-10 w-10 shrink-0 flex items-center justify-center text-gray-300 hover:text-red-500 transition-colors"
+                                    type="button">
+                                    <span class="material-symbols-outlined text-[20px]">delete</span>
+                                </button>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <span
+                                    class="h-10 w-10 shrink-0 flex items-center justify-center rounded-lg border border-silver-border bg-gray-50 text-xs font-bold text-gray-500">E</span>
+                                <input class="w-full h-11 rounded-lg text-sm" placeholder="Option text" type="text"
+                                    value="Decorator Pattern" />
+                                <button
+                                    class="h-10 w-10 shrink-0 flex items-center justify-center text-red-500 hover:text-red-600 transition-colors"
+                                    type="button">
+                                    <span class="material-symbols-outlined text-[20px]">delete</span>
+                                </button>
+                            </div>
+                        </div>
+                        <button
+                            class="w-full h-11 border-2 border-dashed border-forest-green/30 rounded-lg text-sm font-bold text-forest-green flex items-center justify-center gap-2 hover:bg-forest-green/5 transition-all mt-2"
+                            type="button">
+                            <span class="material-symbols-outlined text-[18px]">add_circle</span>
+                            Add Option
+                        </button>
+                    </div>
+                    <div class="space-y-3">
+                        <label class="text-[11px] font-bold text-gray-500 uppercase tracking-wider">Correct Key</label>
+                        <div class="flex flex-wrap gap-3">
+                            <label class="relative cursor-pointer">
+                                <input checked="" class="peer sr-only" name="correct" type="radio" />
+                                <div
+                                    class="w-11 h-11 flex items-center justify-center rounded-lg border border-silver-border text-sm font-bold text-gray-500 peer-checked:border-forest-green peer-checked:text-forest-green peer-checked:bg-forest-green/5 transition-all">
+                                    A</div>
+                            </label>
+                            <label class="relative cursor-pointer">
+                                <input class="peer sr-only" name="correct" type="radio" />
+                                <div
+                                    class="w-11 h-11 flex items-center justify-center rounded-lg border border-silver-border text-sm font-bold text-gray-500 peer-checked:border-forest-green peer-checked:text-forest-green peer-checked:bg-forest-green/5 transition-all">
+                                    B</div>
+                            </label>
+                            <label class="relative cursor-pointer">
+                                <input class="peer sr-only" name="correct" type="radio" />
+                                <div
+                                    class="w-11 h-11 flex items-center justify-center rounded-lg border border-silver-border text-sm font-bold text-gray-500 peer-checked:border-forest-green peer-checked:text-forest-green peer-checked:bg-forest-green/5 transition-all">
+                                    C</div>
+                            </label>
+                            <label class="relative cursor-pointer">
+                                <input class="peer sr-only" name="correct" type="radio" />
+                                <div
+                                    class="w-11 h-11 flex items-center justify-center rounded-lg border border-silver-border text-sm font-bold text-gray-500 peer-checked:border-forest-green peer-checked:text-forest-green peer-checked:bg-forest-green/5 transition-all">
+                                    D</div>
+                            </label>
+                            <label class="relative cursor-pointer">
+                                <input class="peer sr-only" name="correct" type="radio" />
+                                <div
+                                    class="w-11 h-11 flex items-center justify-center rounded-lg border border-silver-border text-sm font-bold text-gray-500 peer-checked:border-forest-green peer-checked:text-forest-green peer-checked:bg-forest-green/5 transition-all">
+                                    E</div>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="pt-4">
+                        <button
+                            class="w-full h-14 bg-forest-green text-white font-bold rounded-xl shadow-sm flex items-center justify-center gap-2 hover:bg-[#027a1a] transition-colors"
+                            type="button">
+                            <span class="material-symbols-outlined text-[20px]">save</span>
+                            Submit Question
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div class="space-y-4">
+                <div class="flex items-center justify-between px-1">
+                    <h3 class="text-sm font-bold text-black-forest uppercase tracking-wider">Your Course Submissions
+                        (02)</h3>
+                </div>
+                <div class="space-y-3">
+                    <div class="card-flat rounded-xl p-4 flex gap-4">
+                        <div
+                            class="h-6 w-6 shrink-0 flex items-center justify-center rounded-full bg-gray-100 text-[10px] font-bold">
+                            02</div>
+                        <div class="flex-1">
+                            <p class="text-sm font-medium line-clamp-2">Which design pattern is used to decouple an
+                                abstraction from its implementation?</p>
+                            <div class="mt-3 flex items-center justify-between">
+                                <span
+                                    class="text-[9px] font-bold text-forest-green bg-forest-green/5 px-2 py-0.5 rounded uppercase tracking-tighter">Verified
+                                    Submission</span>
+                                <div class="flex gap-4">
+                                    <button
+                                        class="material-symbols-outlined text-[20px] text-gray-400 hover:text-black-forest">edit_square</button>
+                                    <button
+                                        class="material-symbols-outlined text-[20px] text-gray-300 hover:text-red-500">delete</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-flat rounded-xl p-4 flex gap-4">
+                        <div
+                            class="h-6 w-6 shrink-0 flex items-center justify-center rounded-full bg-gray-100 text-[10px] font-bold">
+                            01</div>
+                        <div class="flex-1">
+                            <p class="text-sm font-medium line-clamp-2">Explain the primary goal of the 'Interface
+                                Segregation Principle' in SOLID?</p>
+                            <div class="mt-3 flex items-center justify-between">
+                                <span
+                                    class="text-[9px] font-bold text-forest-green bg-forest-green/5 px-2 py-0.5 rounded uppercase tracking-tighter">Verified
+                                    Submission</span>
+                                <div class="flex gap-4">
+                                    <button
+                                        class="material-symbols-outlined text-[20px] text-gray-400 hover:text-black-forest">edit_square</button>
+                                    <button
+                                        class="material-symbols-outlined text-[20px] text-gray-300 hover:text-red-500">delete</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <div class="h-10"></div>
+    </div>
+
+</body>
+
+</html>

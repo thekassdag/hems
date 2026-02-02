@@ -1,0 +1,698 @@
+@{
+    Layout = null; // Use null layout as the HTML template is a full page
+}
+
+<!DOCTYPE html>
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Themed Question Bank Builder - Haramaya University</title>
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@300;400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        'forest-green': "#03941f",
+                        'black-forest': "#034b11",
+                        'silver-border': "#bfbfbf",
+                        'carbon-black': "#222222",
+                        'main-bg': "#fdfdfd"
+                    },
+                    fontFamily: {
+                        display: "Epilogue"
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.25rem",
+                        lg: "0.5rem",
+                        xl: "0.75rem",
+                        full: "9999px"
+                    }
+                }
+            }
+        };
+    </script>
+    <style type="text/tailwindcss">
+        @@layer base {
+            body {
+                @@apply bg-main-bg text-carbon-black font-display antialiased;
+            }
+            input[type="text"], textarea, select {
+                @@apply border-silver-border text-carbon-black focus:ring-forest-green focus:border-forest-green placeholder-gray-400;
+            }
+        }
+        .card-flat {
+            @@apply bg-white border border-silver-border shadow-none;
+        }
+    </style>
+    <style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+        .swal-confirm-button {
+            background-color: #03941f !important; /* forest-green */
+            color: white !important;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.5/dist/sweetalert2.all.min.js" defer></script>
+</head>
+
+<body class="bg-main-bg">
+    <div class="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden pb-8">
+        <header class="bg-black-forest sticky top-0 z-50">
+            <div class="px-4 py-4 flex items-center justify-between max-w-[2000px] mx-auto">
+                <div class="flex items-center gap-3">
+                    <div class="h-10 w-10 bg-white/10 flex items-center justify-center rounded-lg text-white">
+                        <span class="material-symbols-outlined text-[24px]">verified_user</span>
+                    </div>
+                    <div>
+                        <h1 class="text-[10px] font-bold uppercase tracking-widest text-white/60 leading-none mb-1">
+                            @ViewBag.ExamTitle
+                            </h1>
+                        <p class="text-sm font-bold text-white">@ViewBag.CurrentUserName</p>
+                    </div>
+                </div>
+                <button class="text-xs font-bold text-red-200 flex items-center gap-1">
+                    <span class="material-symbols-outlined text-[18px]">logout</span>
+                    Logout
+                </button>
+            </div>
+        </header>
+        <div class="max-w-[1440px] w-full mx-auto">
+            <div class="p-4 mb-7">
+                <div class="card-flat flex-1 rounded-xl p-5 flex flex-col gap-4">
+                    <div class="space-y-1">
+                        <span
+                            class="text-[10px] font-bold text-forest-green uppercase bg-forest-green/10 px-2 py-0.5 rounded">Assigned
+                            Topic</span>
+                        <h2 class="text-xl font-bold text-black-forest leading-tight">@ViewBag.TopicTitle</h2>
+                        <p class="text-sm text-gray-500">Part of: @ViewBag.ExamTitle</p>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4 pt-4 border-t border-silver-border/40">
+                        <div class="bg-gray-50 rounded-lg p-3">
+                            <p class="text-[10px] text-gray-500 uppercase font-bold mb-1">Allocated Questions</p>
+                            <div class="flex items-baseline gap-1">
+                                <p class="text-2xl font-bold text-black-forest" id="allocated-questions-count">@ViewBag.TotalAllocatedQuestions</p>
+                                <span class="text-[10px] text-gray-400 font-medium">Items</span>
+                            </div>
+                        </div>
+                        <div class="bg-gray-50 rounded-lg p-3">
+                            <p class="text-[10px] text-gray-500 uppercase font-bold mb-1">Remaining Questions</p>
+                            <div class="flex items-baseline gap-1">
+                                <p class="text-2xl font-bold text-black-forest" id="remaining-questions-count">@ViewBag.RemainingQuestions</p>
+                                <span class="text-[10px] text-gray-400 font-medium">Items</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <main class="px-4">
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <!-- LEFT SIDE (2 COLS ON LARGE SCREEN) -->
+                    <div class="lg:col-span-2 space-y-6">
+                        <div class="card-flat rounded-xl p-5">
+                            <div class="flex items-center gap-2 mb-6">
+                                <span class="material-symbols-outlined text-black-forest text-[20px]">post_add</span>
+                                <h3 class="text-base font-bold text-black-forest">New MCQ Entry</h3>
+                            </div>
+                            <form class="space-y-5" id="question-form">
+                                <input type="hidden" id="question-id" value="0" /> <!-- Hidden field for question ID -->
+                                <div id="form-errors" class="mb-4"></div>
+                                <div class="space-y-2">
+                                    <div class="flex items-center justify-between">
+                                        <label
+                                            class="text-[11px] font-bold text-gray-500 uppercase tracking-wider">Question
+                                            Stem</label>
+                                    </div>
+                                    <textarea class="w-full rounded-lg text-sm min-h-[100px]"
+                                        placeholder="Type the question content here..." id="question-stem"></textarea>
+                                </div>
+                                <div class="space-y-2">
+                                        <label class="text-[11px] font-bold text-gray-500 uppercase
+            tracking-wider">Marks</label>
+                                        <input type="number" class="w-full rounded-lg text-sm" placeholder="Points for this
+            question" min="1" value="1" id="question-marks" />
+                                    </div>
+                                <div class="space-y-3">
+                                    <div class="flex items-baseline justify-between">
+                                        <label
+                                            class="text-[21px] font-bold text-gray-500 uppercase tracking-wider">Options</label>
+                                        <button
+                                            class="p-2 border-2 border-dashed border-forest-green/30 rounded-lg text-sm font-bold text-forest-green flex items-center justify-center gap-2 hover:bg-forest-green/5 transition-all mt-2"
+                                            type="button" onclick="addOption()">
+                                            <span class="material-symbols-outlined text-[18px]">add_circle</span>
+                                            Add Option
+                                        </button>
+                                    </div>
+                                    <div class="grid gap-3 options-container" id="options-container">
+                                        <!-- Options will be dynamically added here by JavaScript -->
+                                    </div>
+                                </div>
+
+                                <div class="pt-4">
+                                    <button
+                                        class="w-full h-14 bg-forest-green text-white font-bold rounded-xl shadow-sm flex items-center justify-center gap-2 hover:bg-[#027a1a] transition-colors"
+                                        type="button" id="add-question-button">
+                                        <span class="material-symbols-outlined text-[20px]">save</span>
+                                        Add Question
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- RIGHT SIDE (1 COL ON LARGE SCREEN) -->
+                    <div class="lg:col-span-1 space-y-4">
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between px-1">
+                                <h3 class="text-sm font-bold text-black-forest uppercase tracking-wider" id="course-submissions-title">Your
+                                    Submissions
+                                    (@(ViewBag.TotalAllocatedQuestions - ViewBag.RemainingQuestions))</h3>
+                            </div>
+                            <div class="space-y-3" id="question-list-container">
+                                @{
+                                    var questionNumber = ViewBag.ExistingQuestions?.Count ?? 0;
+                                }
+                                @if (ViewBag.ExistingQuestions != null)
+                                {
+                                    @foreach (var question in ViewBag.ExistingQuestions)
+                                    {
+                                        <div class="card-flat rounded-xl p-4 flex gap-4" data-question-id="@question.Id">
+                                            <div
+                                                class="h-6 w-6 shrink-0 flex items-center justify-center rounded-full bg-gray-100 text-[10px] font-bold">
+                                                @(questionNumber--)</div>
+                                            <div class="flex-1">
+                                                <p class="text-sm font-medium line-clamp-2">@question.Content</p>
+                                                <div class="mt-3 flex items-center justify-between">
+                                                    <span
+                                                        class="text-[9px] font-bold text-forest-green bg-forest-green/5 px-2 py-0.5 rounded uppercase tracking-tighter">Verified
+                                                        Submission</span>
+                                                    <div class="flex gap-4">
+                                                        <button
+                                                            class="material-symbols-outlined text-[20px] text-gray-400 hover:text-black-forest"
+                                                            onclick="editQuestion(@question.Id)">edit_square</button>
+                                                        <button
+                                                            class="material-symbols-outlined text-[20px] text-gray-300 hover:text-red-500"
+                                                            onclick="deleteQuestion(@question.Id)">delete</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </main>
+        </div>
+
+    </div>
+    <script>
+        let optionCount = 0; // To keep track of the number of options
+        const examId = @ViewBag.ExamId; // Inject ExamId from ViewBag
+        const examTopicId = @ViewBag.TopicId; // Inject TopicId from ViewBag
+
+        // Function to generate a new option row
+        function addOption(optionText = "", isCorrect = false, choiceId = 0) {
+            // Ensure choiceId is always a number, even if it comes as null/undefined from backend
+            const safeChoiceId = choiceId === null || choiceId === undefined ? 0 : choiceId;
+            const optionsContainer = document.getElementById("options-container");
+            const optionChar = String.fromCharCode(65 + optionCount); // A, B, C, ...
+
+            const optionRow = document.createElement("div");
+            optionRow.className = "flex items-center gap-2 option-row";
+            optionRow.innerHTML = `
+                <label class="flex items-center gap-2 flex-grow cursor-pointer p-2 rounded-lg border border-silver-border has-[:checked]:border-forest-green has-[:checked]:bg-forest-green/5 transition-all">
+                    <input type="radio" name="correctOption" class="peer h-5 w-5 rounded-full border-silver-border text-forest-green focus:ring-forest-green correct-answer-radio" data-option-char="${optionChar}" ${isCorrect ? 'checked' : ''} />
+                    <input type="hidden" class="choice-id" value="${safeChoiceId}" /> <!-- Hidden field for choice ID -->
+                    <input class="w-full h-11 rounded-lg text-sm option-text-input border-none focus:ring-0" placeholder="Option ${optionChar} text" type="text" value="${optionText}" />
+                </label>
+                <button class="h-10 w-10 shrink-0 flex items-center justify-center text-red-500 hover:text-red-600 transition-colors delete-option-button" type="button" onclick="deleteOption(this)">
+                    <span class="material-symbols-outlined text-[20px]">delete</span>
+                </button>
+            `;
+
+            optionsContainer.appendChild(optionRow);
+            optionCount++;
+            updateOptionLabels(); // Update labels after adding a new option
+        }
+
+        // Function to delete an option row
+        function deleteOption(buttonElement) {
+            const optionRow = buttonElement.closest(".option-row");
+            if (optionRow) {
+                optionRow.remove();
+                optionCount--;
+                updateOptionLabels();
+            }
+        }
+
+        // Function to update option labels (A, B, C, ...)
+        function updateOptionLabels() {
+            const optionsContainer = document.getElementById("options-container");
+            const optionRows = optionsContainer.querySelectorAll(".option-row");
+            optionRows.forEach((row, index) => {
+                const optionChar = String.fromCharCode(65 + index);
+                // Update placeholder for text input
+                row.querySelector(".option-text-input").placeholder = `Option ${optionChar} text`;
+                // Update data-option-char for radio button
+                row.querySelector(".correct-answer-radio").dataset.optionChar = optionChar;
+            });
+        }
+
+        // Function to display form errors
+        function displayFormErrors(errors) {
+            const errorContainer = document.getElementById("form-errors");
+            errorContainer.innerHTML = ''; // Clear previous errors
+            if (errors) {
+                for (const key in errors) {
+                    if (errors.hasOwnProperty(key)) {
+                        errors[key].forEach(error => {
+                            const errorElement = document.createElement('p');
+                            errorElement.className = 'text-red-500 text-xs italic';
+                            errorElement.textContent = error;
+                            errorContainer.appendChild(errorElement);
+                        });
+                    }
+                }
+            }
+        }
+
+        // Function to reset the form
+        function resetQuestionForm() {
+            document.getElementById("question-form").reset();
+            document.getElementById("question-stem").value = "";
+            document.getElementById("question-marks").value = 1;
+            document.getElementById("options-container").innerHTML = ""; // Clear options
+            optionCount = 0; // Reset option count
+            addOption(""); // Add one default option
+            document.getElementById("form-errors").innerHTML = ""; // Clear errors
+            document.getElementById("question-id").value = "0"; // Reset hidden question ID
+            document.getElementById("add-question-button").innerHTML = '<span class="material-symbols-outlined text-[20px]">save</span> Add Question'; // Reset button text
+            updateAddQuestionButtonState(); // Update button state after resetting the form
+        }
+
+        // Function to create a question card for the list (modified to accept question object)
+        function createQuestionCard(question) {
+            const newQuestionCard = document.createElement("div");
+            newQuestionCard.className = "card-flat rounded-xl p-4 flex gap-4";
+            newQuestionCard.setAttribute("data-question-id", question.id); // Add data-question-id
+            newQuestionCard.innerHTML = `
+                <div class="h-6 w-6 shrink-0 flex items-center justify-center rounded-full bg-gray-100 text-[10px] font-bold">
+                    <!-- Number will be updated dynamically on list render -->
+                </div>
+                <div class="flex-1">
+                    <p class="text-sm font-medium line-clamp-2">${question.content}</p>
+                    <div class="mt-3 flex items-center justify-between">
+                        <span class="text-[9px] font-bold text-forest-green bg-forest-green/5 px-2 py-0.5 rounded uppercase tracking-tighter">Verified Submission</span>
+                        <div class="flex gap-4">
+                            <button class="material-symbols-outlined text-[20px] text-gray-400 hover:text-black-forest" onclick="editQuestion(${question.id})">edit_square</button>
+                            <button class="material-symbols-outlined text-[20px] text-gray-300 hover:text-red-500"
+                                                            onclick="deleteQuestion(${question.id})">delete</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            return newQuestionCard;
+        }
+
+        // Function to update question numbers in the sidebar
+        function updateQuestionNumbers() {
+            const questionListContainer = document.getElementById("question-list-container");
+            const questionCards = questionListContainer.querySelectorAll(".card-flat[data-question-id]");
+            let currentNumber = questionCards.length;
+            questionCards.forEach(card => {
+                card.querySelector(".h-6.w-6").textContent = currentNumber--;
+            });
+        }
+
+        // Function to update topic card counts
+        function updateTopicCardCounts() {
+            const allocatedQuestionsElement = document.getElementById("allocated-questions-count");
+            const remainingQuestionsElement = document.getElementById("remaining-questions-count");
+            const courseSubmissionsTitle = document.getElementById("course-submissions-title");
+            let submitted = document.querySelectorAll("#question-list-container > div")?.length || 0;
+            console.log("Submitted questions count:", submitted);
+
+            let allocated = parseInt(allocatedQuestionsElement.textContent) || 0;
+            let remaining = 0;
+
+            
+
+            // recalc remaining
+            if(submitted > allocated) {
+                remaining = 0;
+            } else {
+                remaining = allocated - submitted;
+            }
+
+            // update UI
+            remainingQuestionsElement.textContent = remaining;
+            courseSubmissionsTitle.textContent = `Your Submissions (${submitted})`;
+            updateAddQuestionButtonState(); // Update button state after counts change
+        }
+
+        // Function to update the state of the Add Question button
+        function updateAddQuestionButtonState() {
+            const addQuestionButton = document.getElementById("add-question-button");
+            const questionIdField = document.getElementById("question-id");
+            const isUpdate = questionIdField.value !== "0";
+
+            if (isUpdate) {
+                // If in update mode, the button should always be enabled to allow saving changes
+                addQuestionButton.disabled = false;
+                addQuestionButton.classList.remove("bg-gray-400", "cursor-not-allowed");
+                addQuestionButton.classList.add("bg-forest-green", "hover:bg-[#027a1a]");
+                addQuestionButton.innerHTML = '<span class="material-symbols-outlined text-[20px]">save</span> Update Question';
+                return;
+            }
+
+            const allocatedQuestions = parseInt(document.getElementById("allocated-questions-count").textContent);
+            const currentSubmittedQuestions = document.querySelectorAll("#question-list-container > div").length;
+
+            if (currentSubmittedQuestions >= allocatedQuestions) {
+                addQuestionButton.disabled = true;
+                addQuestionButton.classList.remove("bg-forest-green", "hover:bg-[#027a1a]");
+                addQuestionButton.classList.add("bg-gray-400", "cursor-not-allowed");
+                addQuestionButton.innerHTML = '<span class="material-symbols-outlined text-[20px]">block</span> Limit Reached';
+            } else {
+                addQuestionButton.disabled = false;
+                addQuestionButton.classList.remove("bg-gray-400", "cursor-not-allowed");
+                addQuestionButton.classList.add("bg-forest-green", "hover:bg-[#027a1a]");
+                addQuestionButton.innerHTML = '<span class="material-symbols-outlined text-[20px]">save</span> Add Question';
+            }
+        }
+
+        // Function to delete a question
+        async function deleteQuestion(questionId) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#03941f', // forest-green
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!',
+                customClass: {
+                    confirmButton: 'swal-confirm-button'
+                }
+            }).then(async (result) => {
+                if (result.isConfirmed) {
+                    try {
+                        const response = await fetch(`/dashboard/exams/${examId}/exam-topics/${examTopicId}/questions/${questionId}/delete`, {
+                            method: 'DELETE',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                // Add authorization token if needed
+                            }
+                        });
+
+                        if (!response.ok) {
+                            const errorData = await response.json();
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error!',
+                                text: errorData.message || "Failed to delete question.",
+                                customClass: {
+                                    confirmButton: 'swal-confirm-button'
+                                }
+                            });
+                            return;
+                        }
+
+                        // Remove the question card from the UI
+                        const questionCard = document.querySelector(`.card-flat[data-question-id="${questionId}"]`);
+                        if (questionCard) {
+                            questionCard.remove();
+                        }
+
+                        updateQuestionNumbers(); // Update numbers after deletion
+                        updateTopicCardCounts(); // Update topic card counts after deletion
+                        updateAddQuestionButtonState(); // Update button state after deletion
+
+                        // Check if the deleted question was currently being edited
+                        const currentQuestionIdInForm = document.getElementById("question-id").value;
+                        if (currentQuestionIdInForm === String(questionId)) { // Compare as strings
+                            resetQuestionForm(); // Reset the form if the edited question was deleted
+                        }
+
+                        Swal.fire({
+                            toast: true,
+                            position: 'top-end',
+                            icon: 'success',
+                            title: 'Your question has been deleted.',
+                            showConfirmButton: false,
+                            timer: 3000,
+                            timerProgressBar: true
+                        });
+
+                    } catch (error) {
+                        console.error("Error deleting question:", error);
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Network Error!',
+                            text: "Failed to connect to the server. Please check your connection.",
+                            customClass: {
+                                confirmButton: 'swal-confirm-button'
+                            }
+                        });
+                    }
+                }
+            });
+        }
+
+        // Function to load question data into the form for editing
+        async function editQuestion(questionId) {
+            try {
+                const response = await fetch(`/dashboard/exams/${examId}/exam-topics/${examTopicId}/questions/${questionId}`);
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error!',
+                        text: errorData.message || "Failed to fetch question for editing.",
+                        customClass: {
+                            confirmButton: 'swal-confirm-button' // Custom class for theming
+                        }
+                    });
+                    return;
+                }
+                const question = await response.json();
+
+                // Populate form fields
+                document.getElementById("question-id").value = question.id;
+                document.getElementById("question-stem").value = question.content;
+                document.getElementById("question-marks").value = question.marks;
+
+                // Clear existing options and add new ones
+                document.getElementById("options-container").innerHTML = "";
+                optionCount = 0; // Reset option count before adding new options
+                question.choices.forEach(choice => {
+                    addOption(choice.choiceText, choice.isCorrect, choice.id || 0); // Ensure choice.id is a number or 0
+                });
+
+                // Change button text and ensure it's enabled for editing
+                updateAddQuestionButtonState(); // This will set it to "Update Question" and enable it
+
+                // Scroll to the top of the form
+                document.getElementById("question-form").scrollIntoView({ behavior: 'smooth' });
+
+            } catch (error) {
+                console.error("Error fetching question for edit:", error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Network Error!',
+                    text: "Failed to load question for editing. Please check your connection.",
+                    customClass: {
+                        confirmButton: 'swal-confirm-button' // Custom class for theming
+                    }
+                });
+            }
+        }
+
+
+        // Function to submit the question form (modified for update logic)
+        async function submitQuestionForm() {
+            const questionId = document.getElementById("question-id").value;
+            const isUpdate = questionId !== "0";
+
+            const questionStem = document.getElementById("question-stem").value;
+            const questionMarks = parseInt(document.getElementById("question-marks").value);
+
+            const options = [];
+            const optionRows = document.querySelectorAll(".option-row");
+            let hasCorrectAnswer = false;
+
+            optionRows.forEach(row => {
+                const choiceId = parseInt(row.querySelector(".choice-id").value);
+                const choiceText = row.querySelector(".option-text-input").value;
+                const isCorrect = row.querySelector(".correct-answer-radio").checked;
+                if (isCorrect) hasCorrectAnswer = true;
+
+                // Only include 'id' if it's not 0 (i.e., it's an existing choice being updated)
+                if (choiceId !== 0) {
+                    options.push({ id: choiceId, choiceText, isCorrect });
+                } else {
+                    options.push({ choiceText, isCorrect }); // Omit 'id' for new choices
+                }
+            });
+
+            // Basic client-side validation
+            if (!questionStem.trim()) {
+                displayFormErrors({ Content: ["Question Stem cannot be empty."] });
+                return;
+            }
+            if (isNaN(questionMarks) || questionMarks < 1) {
+                displayFormErrors({ Marks: ["Marks must be a positive number."] });
+                return;
+            }
+            if (options.length < 2) {
+                displayFormErrors({ Choices: ["Please add at least two options."] });
+                return;
+            }
+            if (!hasCorrectAnswer) {
+                displayFormErrors({ Choices: ["Please select one correct answer."] });
+                return;
+            }
+            if (options.some(opt => !opt.choiceText.trim())) {
+                displayFormErrors({ Choices: ["All option texts must be filled."] });
+                return;
+            }
+
+            // Client-side check for question limit only on creation
+            if (!isUpdate) {
+                const allocatedQuestions = parseInt(document.getElementById("allocated-questions-count").textContent);
+                const currentSubmittedQuestions = document.querySelectorAll("#question-list-container > div").length;
+
+                if (currentSubmittedQuestions >= allocatedQuestions) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Limit Reached!',
+                        text: `You have already created the maximum allowed questions (${allocatedQuestions}) for this topic.`,
+                        customClass: {
+                            confirmButton: 'swal-confirm-button'
+                        }
+                    });
+                    return;
+                }
+            }
+
+            const questionData = {
+                examTopicId: examTopicId,
+                content: questionStem,
+                marks: questionMarks,
+                choices: options
+            };
+
+            let url = `/dashboard/exams/${examId}/exam-topics/${examTopicId}/questions/create`; // Added /create
+            let method = 'POST';
+
+            if (isUpdate) {
+                url = `/dashboard/exams/${examId}/exam-topics/${examTopicId}/questions/${questionId}/edit`;
+                method = 'PUT';
+                questionData.questionId = parseInt(questionId); // Add questionId to update DTO
+            }
+
+            try {
+                const response = await fetch(url, {
+                    method: method,
+                    headers: {
+                        'Content-Type': 'application/json',
+                        // Add authorization token if needed
+                    },
+                    body: JSON.stringify(questionData)
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    // For API validation errors, still use displayFormErrors
+                    if (response.status === 400 && errorData.errors) { // Assuming 400 for validation errors
+                        displayFormErrors(errorData.errors);
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error!',
+                            text: errorData.message || "An unexpected error occurred.",
+                            customClass: {
+                                confirmButton: 'swal-confirm-button'
+                            }
+                        });
+                    }
+                    return;
+                }
+
+                const responseQuestion = await response.json(); // This is the updated/created question
+
+                if (isUpdate) {
+                    // Update existing card in the list
+                    const existingCard = document.querySelector(`.card-flat[data-question-id="${questionId}"]`);
+                    if (existingCard) {
+                        existingCard.querySelector(".flex-1 p").textContent = responseQuestion.content;
+                    }
+                    Swal.fire({
+                        toast: true,
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Question updated successfully!',
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true
+                    });
+                } else {
+                    // Prepend new card to the list
+                    const questionListContainer = document.getElementById("question-list-container");
+                    const newQuestionCard = createQuestionCard(responseQuestion);
+                    questionListContainer.prepend(newQuestionCard);
+                    Swal.fire({
+                        toast: true,
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Question created successfully!',
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true
+                    });
+                    updateTopicCardCounts(); // Update topic card counts after addition
+                }
+
+                resetQuestionForm(); // Reset form after success
+                updateQuestionNumbers(); // Update numbers after any change
+                updateAddQuestionButtonState(); // Update button state after form submission
+
+            } catch (error) {
+                console.error(`Error ${isUpdate ? 'updating' : 'creating'} question:`, error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Network Error!',
+                    text: "Failed to connect to the server. Please check your connection.",
+                    customClass: {
+                        confirmButton: 'swal-confirm-button'
+                    }
+                });
+            }
+        }
+
+        // Add one initial option when the page loads
+        document.addEventListener("DOMContentLoaded", function() {
+            addOption("");
+            // Attach submit handler to the button
+            document.getElementById("add-question-button").addEventListener("click", submitQuestionForm);
+            updateQuestionNumbers(); // Initial numbering of existing questions
+            updateAddQuestionButtonState(); // Initial update of button state
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Exam Instructions - Haramaya University</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        forest: "#03941f",
+                        blackforest: "#034b11",
+                        carbon: "#222222",
+                        silver: "#bfbfbf",
+                        offwhite: "#fdfdfd",
+                        background: "#f8f9f8"
+                    },
+                    fontFamily: {
+                        display: ["Inter", "sans-serif"],
+                        body: ["Noto Sans", "sans-serif"]
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.25rem",
+                        lg: "0.5rem",
+                        xl: "0.75rem",
+                        full: "9999px"
+                    }
+                }
+            }
+        };
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .no-scrollbar::-webkit-scrollbar {
+                display: none;
+            }
+            .no-scrollbar {
+                -ms-overflow-style: none;
+                scrollbar-width: none;
+            }
+        }
+        :root {
+            --primary: #03941f;
+            --accent: #034b11;
+            --text-main: #222222;
+        }
+    </style>
+    <style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+
+<body class="bg-background antialiased font-display">
+    <div class="flex w-full flex-col mx-auto bg-background border-x border-silver/30 shadow-sm">
+        <div
+            class="sticky top-0 z-20 flex items-center bg-white/95 backdrop-blur-sm px-4 h-16 justify-between border-b border-silver/40">
+            <h1 class="text-blackforest text-base font-bold tracking-tight flex-1 text-center pr-10 uppercase">Holistic
+                Exam Management System</h1>
+        </div>
+
+    </div>
+    <div class="relative mx-auto max-w-[1000px]">
+        <div class="flex-1 items-center overflow-y-auto no-scrollbar pb-40">
+            <div class="flex flex-col items-center pt-8 px-6 text-center">
+                <div
+                    class="w-36 h-36 mb-4 bg-white rounded-2xl flex items-center justify-center border border-gray-100 shadow-sm p-2">
+                    <div class="w-full h-full bg-center bg-contain bg-no-repeat"
+                        style='background-image: url("assets/images/logo.png");'>
+                    </div>
+                </div>
+                <h2 class="text-carbon tracking-tight text-2xl font-bold leading-tight mb-2">Exam
+                    Instructions</h2>
+                <p class="text-gray-600 text-sm font-medium leading-relaxed max-w-[280px]">
+                    4th Year/Batch 2023 Software Engineering Holistic Exam. Please read carefully.
+                </p>
+            </div>
+            <div class="px-5 mt-8 space-y-4">
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-4">
+                    <!-- Time Management -->
+                    <div class="flex gap-4 bg-offwhite p-5 rounded-xl border border-silver shadow-sm min-w-[300px]">
+                        <div
+                            class="text-blackforest flex items-center justify-center rounded-lg bg-forest/10 shrink-0 size-12">
+                            <i class="fa-solid fa-clock text-[22px]"></i>
+                        </div>
+                        <div class="flex flex-1 flex-col justify-center">
+                            <p class="text-blackforest text-base font-bold mb-1">Time Management</p>
+                            <p class="text-carbon/80 text-sm leading-relaxed">
+                                Complete the exam within the 120-minute limit. The system will submit your work
+                                automatically when the timer ends.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Academic Integrity -->
+                    <div class="flex gap-4 bg-offwhite p-5 rounded-xl border border-silver shadow-sm min-w-[300px]">
+                        <div
+                            class="text-blackforest flex items-center justify-center rounded-lg bg-forest/10 shrink-0 size-12">
+                            <i class="fa-solid fa-handshake text-[22px]"></i>
+                        </div>
+                        <div class="flex flex-1 flex-col justify-center">
+                            <p class="text-blackforest text-base font-bold mb-1">Academic Integrity</p>
+                            <p class="text-carbon/80 text-sm leading-relaxed">
+                                Avoid cheating and avoid switching tabs. Any detected misconduct immediately ends the
+                                test.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Lab Protocol -->
+                    <div class="flex gap-4 bg-offwhite p-5 rounded-xl border border-silver shadow-sm min-w-[300px]">
+                        <div
+                            class="text-blackforest flex items-center justify-center rounded-lg bg-forest/10 shrink-0 size-12">
+                            <i class="fa-solid fa-desktop text-[22px]"></i>
+                        </div>
+                        <div class="flex flex-1 flex-col justify-center">
+                            <p class="text-blackforest text-base font-bold mb-1">Lab Protocol</p>
+                            <p class="text-carbon/80 text-sm leading-relaxed">
+                                Stay quiet, respect lab rules, and place your phone in the assigned locker before the
+                                session begins.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- No Copying -->
+                    <div class="flex gap-4 bg-offwhite p-5 rounded-xl border border-silver shadow-sm min-w-[300px]">
+                        <div
+                            class="text-blackforest flex items-center justify-center rounded-lg bg-forest/10 shrink-0 size-12">
+                            <i class="fa-solid fa-ban text-[22px]"></i>
+                        </div>
+                        <div class="flex flex-1 flex-col justify-center">
+                            <p class="text-blackforest text-base font-bold mb-1">No Copying</p>
+                            <p class="text-carbon/80 text-sm leading-relaxed">
+                                Copying answers from your device or another student is not allowed. Stay focused on your
+                                own work.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- No Pasting -->
+                    <div class="flex gap-4 bg-offwhite p-5 rounded-xl border border-silver shadow-sm min-w-[300px]">
+                        <div
+                            class="text-blackforest flex items-center justify-center rounded-lg bg-forest/10 shrink-0 size-12">
+                            <i class="fa-solid fa-file-circle-xmark text-[22px]"></i>
+                        </div>
+                        <div class="flex flex-1 flex-col justify-center">
+                            <p class="text-blackforest text-base font-bold mb-1">No Pasting</p>
+                            <p class="text-carbon/80 text-sm leading-relaxed">
+                                Pasting content into answer fields is blocked. All responses must be typed directly by
+                                you.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- No Opening Developer Tools -->
+                    <div class="flex gap-4 bg-offwhite p-5 rounded-xl border border-silver shadow-sm min-w-[300px]">
+                        <div
+                            class="text-blackforest flex items-center justify-center rounded-lg bg-forest/10 shrink-0 size-12">
+                            <i class="fa-solid fa-code text-[22px]"></i>
+                        </div>
+                        <div class="flex flex-1 flex-col justify-center">
+                            <p class="text-blackforest text-base font-bold mb-1">Developer Tools Blocked</p>
+                            <p class="text-carbon/80 text-sm leading-relaxed">
+                                Developer tools, console, and inspector actions are restricted. Any attempt triggers a
+                                warning or auto-submit.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- JavaScript Must Not Be Disabled -->
+                    <div class="flex gap-4 bg-offwhite p-5 rounded-xl border border-silver shadow-sm min-w-[300px]">
+                        <div
+                            class="text-blackforest flex items-center justify-center rounded-lg bg-forest/10 shrink-0 size-12">
+                            <i class="fa-solid fa-triangle-exclamation text-[22px]"></i>
+                        </div>
+                        <div class="flex flex-1 flex-col justify-center">
+                            <p class="text-blackforest text-base font-bold mb-1">JavaScript Required</p>
+                            <p class="text-carbon/80 text-sm leading-relaxed">
+                                Do not disable JavaScript. The exam depends on live validation, autosave, and timing
+                                functions.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- No Closing Network or Tampering -->
+                    <div class="flex gap-4 bg-offwhite p-5 rounded-xl border border-silver shadow-sm min-w-[300px]">
+                        <div
+                            class="text-blackforest flex items-center justify-center rounded-lg bg-forest/10 shrink-0 size-12">
+                            <i class="fa-solid fa-network-wired text-[22px]"></i>
+                        </div>
+                        <div class="flex flex-1 flex-col justify-center">
+                            <p class="text-blackforest text-base font-bold mb-1">Network Must Stay On</p>
+                            <p class="text-carbon/80 text-sm leading-relaxed">
+                                Don’t disconnect from the network or tamper with requests. The system checks your
+                                connection continuously.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex items-start gap-4 px-1 pt-6 pb-4">
+                    <div class="flex items-center h-6">
+                        <input class="size-6 rounded border-silver text-forest focus:ring-forest focus:ring-offset-2"
+                            id="agreement" type="checkbox" />
+                    </div>
+                    <div class="text-sm leading-tight">
+                        <label class="font-bold text-blackforest mb-1 block" for="agreement">I agree to the exam
+                            rules</label>
+                        <p class="text-carbon/70 text-xs">By checking this, you confirm you've read and understood the
+                            rules above.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="absolute bottom-0 left-0 right-0 p-6 backdrop-blur-xl border-t border-silver/30 pb-10">
+            <button
+                class="w-full flex items-center justify-center gap-3 bg-forest hover:bg-[#027a1a] text-white font-bold text-lg py-4 rounded-2xl transition-all shadow-md active:scale-[0.97]">
+                <span>Start Exam Now</span>
+                <span class="material-symbols-outlined text-[22px]">
+                    <i class="fa-solid fa-arrow-right"></i>
+                </span>
+            </button>
+        </div>
+    </div>
+
+</body>
+
+</html>

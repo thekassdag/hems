@@ -1,0 +1,240 @@
+<html class="" lang="en">
+
+<head>
+
+
+
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Verified Student Result Detail</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#03941f",
+                        forest: "#03941f",
+                        carbon: "#1a1a1a",
+                        dim: "#696969",
+                        silver: "#c0c0c0",
+                        "background-light": "#f8f9fa",
+                        "background-dark": "#121212",
+                        "card-dark": "#1c1c1c"
+                    },
+                    fontFamily: {
+                        display: "Inter"
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.25rem",
+                        lg: "0.5rem",
+                        xl: "0.75rem",
+                        full: "9999px"
+                    }
+                }
+            }
+        };
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <style type="text/tailwindcss">
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .progress-ring__circle {
+            transition: stroke-dashoffset 0.35s;
+            transform: rotate(-90deg);
+            transform-origin: 50% 50%;
+        }
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+    <style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+
+<body
+    class="bg-background-light dark:bg-background-dark font-display text-carbon dark:text-white antialiased overflow-hidden">
+
+
+
+    <div
+        class="relative flex h-full max-h-screen w-full max-w-md mx-auto flex-col bg-background-light dark:bg-background-dark shadow-2xl overflow-hidden">
+        <div
+            class="flex items-center px-4 py-3 pt-safe-top justify-between bg-background-light dark:bg-background-dark z-10 border-b border-gray-100 dark:border-white/5">
+            <button
+                class="text-carbon dark:text-white flex size-10 shrink-0 items-center justify-center rounded-full hover:bg-gray-200 dark:hover:bg-white/10 transition-colors">
+                <span class="material-symbols-outlined text-2xl">arrow_back_ios_new</span>
+            </button>
+            <h2 class="text-lg font-bold leading-tight tracking-[-0.015em] text-carbon dark:text-white">Exam Results
+            </h2>
+            <button
+                class="flex h-10 px-2 items-center justify-center text-forest font-bold text-base leading-normal tracking-[0.015em] shrink-0">
+                Done
+            </button>
+        </div>
+        <div class="flex-1 overflow-y-auto no-scrollbar pb-36">
+            <div class="flex flex-col items-center justify-center pt-8 pb-6 px-4">
+                <div
+                    class="mb-4 flex items-center justify-center h-20 w-20 rounded-full bg-forest/10 border-2 border-forest/20">
+                    <span class="material-symbols-outlined text-forest text-5xl">verified</span>
+                </div>
+                <h1 class="text-forest tracking-tight text-[40px] font-bold leading-none text-center">PASSED</h1>
+                <p
+                    class="text-dim dark:text-gray-400 text-sm font-medium leading-normal pt-2 text-center uppercase tracking-wider">
+                    Internship Readiness Certified
+                </p>
+                <div class="mt-2 px-3 py-1 rounded-full bg-gray-100 dark:bg-white/5 border border-silver/30">
+                    <p class="text-[10px] text-dim dark:text-gray-400 font-bold uppercase tracking-widest">Haramaya
+                        University SE Holistic Exam</p>
+                </div>
+            </div>
+            <div class="px-4 mb-6">
+                <div
+                    class="bg-white dark:bg-card-dark rounded-2xl overflow-hidden border border-silver/40 dark:border-white/10 shadow-sm">
+                    <div class="flex items-center justify-between p-6">
+                        <div class="flex flex-col gap-1">
+                            <span class="text-sm text-dim dark:text-gray-400 font-medium uppercase tracking-tight">Total
+                                Weighted Score</span>
+                            <div class="flex items-baseline gap-1">
+                                <span class="text-4xl font-extrabold text-carbon dark:text-white">85</span>
+                                <span class="text-lg text-dim font-medium">/100</span>
+                            </div>
+                            <div
+                                class="mt-2 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-forest/10 w-fit">
+                                <span class="material-symbols-outlined text-forest text-sm">trending_up</span>
+                                <span class="text-xs font-bold text-forest uppercase">Top 10%</span>
+                            </div>
+                        </div>
+                        <div class="relative size-24">
+                            <svg class="size-full" viewBox="0 0 36 36">
+                                <path class="text-gray-100 dark:text-gray-800"
+                                    d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                                    fill="none" stroke="currentColor" stroke-width="3"></path>
+                                <path class="text-forest progress-ring__circle"
+                                    d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                                    fill="none" stroke="currentColor" stroke-dasharray="85, 100" stroke-linecap="round"
+                                    stroke-width="3"></path>
+                            </svg>
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <span class="text-sm font-bold text-carbon dark:text-white">85%</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div
+                        class="border-t border-silver/30 dark:border-white/5 bg-white dark:bg-white/[0.01] p-5 flex flex-col items-center gap-3">
+                        <div class="bg-white p-3 rounded-xl border border-silver/50 shadow-sm">
+                            <img alt="Verification QR Code" class="size-20"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDvbOkMjeP9blfNdR04zBlQbP_vbfmFttZtkOYLlIUOdtDplHbzeFFqF1CYivNA8DIJw99NbNqYcj9g2Fd6qUe7nZFXQyJSdvOnCeuyYgnygsWAtFSu6_yKaTpoxYbN8HEvyetGnNBsEQiX87_2qbvkRgylaCDfdr89RY-AzCtAPu04hA5osqY4v8yoek7YkYztJxRxjxTgY3lZrxPq-mjZ3l4e7A26CgQd1ByVr3etkpwX86QyptEAluhX8nh30iDbFIJCFvsA0cc" />
+                        </div>
+                        <div class="text-center">
+                            <p class="text-[11px] font-bold text-carbon dark:text-white tracking-widest uppercase">Scan
+                                to Verify Authenticity</p>
+                            <p
+                                class="text-[10px] text-dim dark:text-gray-400 font-medium mt-0.5 tracking-tight uppercase">
+                                Ref ID: HU-SE-2024-8592</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="px-4 pb-3 flex items-center gap-2">
+                <h3 class="text-carbon dark:text-white text-lg font-bold leading-tight">Performance Breakdown</h3>
+                <span class="material-symbols-outlined text-dim text-lg">analytics</span>
+            </div>
+            <div class="flex flex-col gap-3 px-4">
+                <div
+                    class="flex flex-col p-4 rounded-xl bg-white dark:bg-card-dark border border-silver/20 dark:border-white/5">
+                    <div class="flex justify-between items-center mb-2">
+                        <div class="flex items-center gap-3">
+                            <div class="flex items-center justify-center size-8 rounded-lg bg-blue-500/10">
+                                <span class="material-symbols-outlined text-blue-500 text-lg">engineering</span>
+                            </div>
+                            <p class="text-carbon dark:text-white text-base font-semibold leading-normal">Requirements
+                                Eng.</p>
+                        </div>
+                        <p class="text-carbon dark:text-white text-sm font-bold leading-normal">92%</p>
+                    </div>
+                    <div class="h-2 w-full rounded-full bg-gray-100 dark:bg-gray-800 overflow-hidden">
+                        <div class="h-full rounded-full bg-forest" style="width: 92%;"></div>
+                    </div>
+                </div>
+                <div
+                    class="flex flex-col p-4 rounded-xl bg-white dark:bg-card-dark border border-silver/20 dark:border-white/5">
+                    <div class="flex justify-between items-center mb-2">
+                        <div class="flex items-center gap-3">
+                            <div class="flex items-center justify-center size-8 rounded-lg bg-purple-500/10">
+                                <span class="material-symbols-outlined text-purple-500 text-lg">code</span>
+                            </div>
+                            <p class="text-carbon dark:text-white text-base font-semibold leading-normal">Coding &amp;
+                                Algos</p>
+                        </div>
+                        <p class="text-carbon dark:text-white text-sm font-bold leading-normal">78%</p>
+                    </div>
+                    <div class="h-2 w-full rounded-full bg-gray-100 dark:bg-gray-800 overflow-hidden">
+                        <div class="h-full rounded-full bg-purple-500" style="width: 78%;"></div>
+                    </div>
+                </div>
+                <div
+                    class="flex flex-col p-4 rounded-xl bg-white dark:bg-card-dark border border-silver/20 dark:border-white/5">
+                    <div class="flex justify-between items-center mb-2">
+                        <div class="flex items-center gap-3">
+                            <div class="flex items-center justify-center size-8 rounded-lg bg-orange-500/10">
+                                <span class="material-symbols-outlined text-orange-500 text-lg">architecture</span>
+                            </div>
+                            <p class="text-carbon dark:text-white text-base font-semibold leading-normal">System Design
+                            </p>
+                        </div>
+                        <p class="text-carbon dark:text-white text-sm font-bold leading-normal">88%</p>
+                    </div>
+                    <div class="h-2 w-full rounded-full bg-gray-100 dark:bg-gray-800 overflow-hidden">
+                        <div class="h-full rounded-full bg-orange-500" style="width: 88%;"></div>
+                    </div>
+                </div>
+                <div
+                    class="flex flex-col p-4 rounded-xl bg-white dark:bg-card-dark border border-silver/20 dark:border-white/5">
+                    <div class="flex justify-between items-center mb-2">
+                        <div class="flex items-center gap-3">
+                            <div class="flex items-center justify-center size-8 rounded-lg bg-pink-500/10">
+                                <span class="material-symbols-outlined text-pink-500 text-lg">bug_report</span>
+                            </div>
+                            <p class="text-carbon dark:text-white text-base font-semibold leading-normal">Software
+                                Testing</p>
+                        </div>
+                        <p class="text-carbon dark:text-white text-sm font-bold leading-normal">65%</p>
+                    </div>
+                    <div class="h-2 w-full rounded-full bg-gray-100 dark:bg-gray-800 overflow-hidden">
+                        <div class="h-full rounded-full bg-pink-500" style="width: 65%;"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-8 px-4 pb-6 flex flex-col items-center">
+                <p class="text-[10px] text-dim dark:text-gray-500 text-center uppercase tracking-widest font-bold">
+                    Official Document • Haramaya University</p>
+            </div>
+        </div>
+        <div
+            class="absolute bottom-0 w-full bg-background-light/95 dark:bg-background-dark/95 backdrop-blur-md border-t border-silver/40 dark:border-white/5 p-4 pb-10">
+            <button
+                class="flex w-full items-center justify-center gap-2 rounded-xl bg-forest px-4 py-4 text-white shadow-lg shadow-forest/20 transition-transform active:scale-[0.98]">
+                <span class="material-symbols-outlined text-[22px]">download</span>
+                <span class="text-base font-bold leading-none uppercase tracking-wide">Download Official
+                    Transcript</span>
+            </button>
+        </div>
+    </div>
+
+</body>
+
+</html>

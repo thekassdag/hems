@@ -1,0 +1,120 @@
+@model HMS.Models.Exam
+
+@{
+    ViewData["Title"] = "Exam Details";
+}
+
+<h1>Exam Details</h1>
+
+<div>
+    <h4>Exam</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ExamCode)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ExamCode)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DurationMinutes)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DurationMinutes)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.StartTime)
+        </dt>
+        <dd class = "col-sm-10">
+            @(Model.StartTime.HasValue ? Model.StartTime.Value.ToString() : "N/A")
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.User)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.User!.FullName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.IsActive)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.IsActive)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Batch)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Batch)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CreatedAt)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CreatedAt)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.UpdatedAt)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.UpdatedAt)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
+
+<h4 class="mt-4">Exam Topics</h4>
+<p>
+    <a asp-area="Dashboard" asp-controller="ExamTopics" asp-action="Add" asp-route-examId="@Model?.Id">Add New Topic to Exam</a>
+</p>
+@if (Model?.ExamTopics != null && Model.ExamTopics.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Topic</th>
+                <th>Instructor</th>
+                <th>Total Questions</th>
+                <th>Deadline</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var examTopic in Model.ExamTopics)
+            {
+                <tr>
+                    <td>@examTopic.Topic?.Title</td>
+                    <td>@examTopic.User?.FullName</td>
+                    <td>@examTopic.TotalQuestions</td>
+                    <td>@examTopic.Deadline.ToString()</td>
+                    <td>
+                        <a asp-area="Dashboard" asp-controller="ExamTopics" asp-action="Edit" asp-route-examId="@Model?.Id" asp-route-id="@examTopic.Id">Edit</a> |
+                        <a asp-area="Dashboard" asp-controller="ExamTopics" asp-action="Details" asp-route-examId="@Model?.Id" asp-route-id="@examTopic.Id">Details</a>
+                        @if (User.IsInRole("SuperAdmin"))
+                        {
+                            <span> | <a asp-area="Dashboard" asp-controller="ExamTopics" asp-action="Delete" asp-route-examId="@Model?.Id" asp-route-id="@examTopic.Id">Delete</a></span>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No topics assigned to this exam yet.</p>
+}

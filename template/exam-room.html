@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Themed Active Exam Interface</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#03941f",
+                        blackForest: "#034b11",
+                        forestGreen: "#03941f",
+                        carbonBlack: "#222222",
+                        silver: "#C0C0C0",
+                        backgroundLight: "#f6f8f7"
+                    },
+                    fontFamily: {
+                        display: "Inter"
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.25rem",
+                        lg: "0.5rem",
+                        xl: "0.75rem",
+                        full: "9999px"
+                    }
+                }
+            }
+        };
+    </script>
+    <style type="text/tailwindcss">
+        @layer base {
+            body {
+                @apply text-carbonBlack;
+            }
+        }
+        .no-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .no-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .no-scrollbar::-webkit-scrollbar-thumb {
+            background-color: #cbd5e1;
+            border-radius: 20px;
+        }
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+    <style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+
+<body class="bg-backgroundLight font-display overflow-hidden h-screen w-full flex flex-col">
+    <header class="flex h-16 shrink-0 items-center justify-between bg-blackForest px-4 shadow-sm z-20">
+        <div class="flex items-center gap-3">
+            <div class="bg-center bg-no-repeat bg-cover rounded-full size-8 shrink-0 bg-white/20"
+                style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDXzorcVYaJEv5U2RBf8GxqM92eLTFW1K2mUvDxYBG3GlIT8HFDtO8Pp34UtxdjXMIRuwQQSxVs-GvKNCmbP0CVoRNWkbcqm7ZmuiZyqDYUXahjFfUgHztxod-M-RWd_OtqYFNwcqwbXVdaw63YdenQVCx_Q5koXrZXl7LOKygQSO71bjqiQMwH9n5gA1ikjh3x0o9AOO1nkQnkL9KefUw7aL4ghWqy0NJum-dhaJ8cGkvvKuqZECkhhvRyVI-UyJSE-y-s3yQ1sRQ");'>
+            </div>
+            <h2 class="text-lg font-bold leading-tight tracking-tight text-white hidden sm:block">Haramaya University
+            </h2>
+            <h2 class="text-lg font-bold leading-tight tracking-tight text-white sm:hidden">Haramaya</h2>
+        </div>
+        <div class="flex items-center gap-2 bg-white/10 px-3 py-1.5 rounded-full border border-white/20">
+            <span class="material-symbols-outlined text-white text-[20px]">timer</span>
+            <p class="text-white text-sm font-bold leading-normal shrink-0 tabular-nums">45:00</p>
+        </div>
+    </header>
+    <div class="flex flex-1 overflow-hidden relative">
+        <aside class="w-[72px] shrink-0 flex flex-col border-r border-gray-200 bg-white h-full z-10">
+            <div class="p-2 border-b border-gray-100 text-center">
+                <span class="text-[10px] uppercase font-bold text-gray-400 tracking-wider">Map</span>
+            </div>
+            <div class="flex-1 overflow-y-auto no-scrollbar p-2 pb-24">
+                <div class="flex flex-col gap-2 items-center">
+                    <button
+                        class="h-10 w-10 flex items-center justify-center rounded-lg bg-forestGreen text-white shadow-sm transition-colors">
+                        <span class="text-sm font-bold">1</span>
+                    </button>
+                    <button
+                        class="h-10 w-10 flex items-center justify-center rounded-lg bg-forestGreen text-white shadow-sm transition-colors">
+                        <span class="text-sm font-bold">2</span>
+                    </button>
+                    <button
+                        class="h-10 w-10 flex items-center justify-center rounded-lg bg-white border-2 border-red-500 text-carbonBlack shadow-sm relative">
+                        <span class="text-sm font-bold">3</span>
+                        <div class="absolute -top-1 -right-1 size-2.5 bg-red-500 rounded-full border border-white">
+                        </div>
+                    </button>
+                    <button
+                        class="h-10 w-10 flex items-center justify-center rounded-lg bg-forestGreen border-2 border-red-500 text-white shadow-sm">
+                        <span class="text-sm font-bold">4</span>
+                    </button>
+                    <button
+                        class="h-10 w-10 flex items-center justify-center rounded-lg bg-forestGreen text-white shadow-sm">
+                        <span class="text-sm font-bold">5</span>
+                    </button>
+                    <button
+                        class="h-10 w-10 flex items-center justify-center rounded-lg bg-forestGreen text-white shadow-sm">
+                        <span class="text-sm font-bold">6</span>
+                    </button>
+                    <button
+                        class="h-10 w-10 flex items-center justify-center rounded-lg bg-white border border-silver text-carbonBlack">
+                        <span class="text-sm font-medium">7</span>
+                    </button>
+                    <button
+                        class="h-12 w-12 flex items-center justify-center rounded-xl bg-forestGreen text-white shadow-md ring-4 ring-forestGreen/20 scale-105 transition-transform z-10 my-2">
+                        <span class="text-base font-bold">14</span>
+                    </button>
+                    <button
+                        class="h-10 w-10 flex items-center justify-center rounded-lg bg-white border border-silver text-carbonBlack">
+                        <span class="text-sm font-medium">15</span>
+                    </button>
+                    <button
+                        class="h-10 w-10 flex items-center justify-center rounded-lg bg-white border border-silver text-carbonBlack">
+                        <span class="text-sm font-medium">16</span>
+                    </button>
+                    <button
+                        class="h-10 w-10 flex items-center justify-center rounded-lg bg-white border-2 border-red-500 text-carbonBlack">
+                        <span class="text-sm font-medium">17</span>
+                    </button>
+                    <button
+                        class="h-10 w-10 flex items-center justify-center rounded-lg bg-white border border-silver text-carbonBlack">
+                        <span class="text-sm font-medium">18</span>
+                    </button>
+                    <button
+                        class="h-10 w-10 flex items-center justify-center rounded-lg bg-white border border-silver text-carbonBlack">
+                        <span class="text-sm font-medium">19</span>
+                    </button>
+                    <button
+                        class="h-10 w-10 flex items-center justify-center rounded-lg bg-white border border-silver text-carbonBlack">
+                        <span class="text-sm font-medium">20</span>
+                    </button>
+                    <div class="h-px w-6 bg-gray-200 my-1"></div>
+                    <button
+                        class="h-10 w-10 flex items-center justify-center rounded-lg bg-white border border-silver text-carbonBlack">
+                        <span class="text-sm font-medium">50</span>
+                    </button>
+                </div>
+            </div>
+        </aside>
+        <main class="flex-1 flex flex-col h-full overflow-hidden bg-backgroundLight">
+            <div
+                class="shrink-0 flex items-center justify-between px-5 py-4 bg-white border-b border-gray-200 min-h-16">
+                <div>
+                    <h1 class="text-carbonBlack text-lg font-bold leading-tight">Question 14 <span
+                            class="text-gray-400 font-normal text-base ml-1">of 50</span></h1>
+                    <p class="text-gray-500 text-xs font-medium mt-0.5">Software Engineering Principles</p>
+                </div>
+                <button class="group flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-100 transition-colors">
+                    <span
+                        class="material-symbols-outlined text-gray-400 group-hover:text-red-500 transition-colors text-[24px]">flag</span>
+                    <span
+                        class="hidden sm:inline text-sm font-medium text-gray-500 group-hover:text-red-500">Flag</span>
+                </button>
+            </div>
+            <div class="flex-1 overflow-y-auto mx-w-[600px]  p-5 pb-8">
+                <div class="mb-6">
+                    <p class="text-carbonBlack text-lg sm:text-xl font-medium leading-relaxed">
+                        Which of the following is <span
+                            class="font-bold underline decoration-forestGreen decoration-2 underline-offset-2">NOT</span>
+                        a principle of the Agile Manifesto?
+                    </p>
+                </div>
+                <div class="flex flex-col gap-3"
+                    style="--radio-dot-svg: url('data:image/svg+xml,%3csvg viewBox=%270 0 16 16%27 fill=%27%2303941f%27 xmlns=%27http://www.w3.org/2000/svg%27%3e%3ccircle cx=%278%27 cy=%278%27 r=%273%27/%3e%3c/svg%3e');">
+                    <label
+                        class="group flex items-start gap-4 rounded-xl border-2 border-transparent bg-white p-4 shadow-sm hover:border-forestGreen/20 cursor-pointer transition-all">
+                        <div class="mt-0.5 shrink-0">
+                            <input
+                                class="h-5 w-5 appearance-none rounded-full border-2 border-silver bg-transparent text-transparent checked:border-forestGreen checked:bg-[image:--radio-dot-svg] focus:outline-none focus:ring-2 focus:ring-forestGreen/20 transition-all"
+                                name="question-14" type="radio" />
+                        </div>
+                        <div class="flex flex-col">
+                            <span
+                                class="text-carbonBlack text-base font-normal leading-normal transition-colors">Customer
+                                collaboration over contract negotiation</span>
+                        </div>
+                    </label>
+                    <label
+                        class="group flex items-start gap-4 rounded-xl border-2 border-transparent bg-white p-4 shadow-sm hover:border-forestGreen/20 cursor-pointer transition-all">
+                        <div class="mt-0.5 shrink-0">
+                            <input
+                                class="h-5 w-5 appearance-none rounded-full border-2 border-silver bg-transparent text-transparent checked:border-forestGreen checked:bg-[image:--radio-dot-svg] focus:outline-none focus:ring-2 focus:ring-forestGreen/20 transition-all"
+                                name="question-14" type="radio" />
+                        </div>
+                        <div class="flex flex-col">
+                            <span
+                                class="text-carbonBlack text-base font-normal leading-normal transition-colors">Working
+                                software over comprehensive documentation</span>
+                        </div>
+                    </label>
+                    <label
+                        class="group flex items-start gap-4 rounded-xl border-2 border-forestGreen bg-forestGreen/5 p-4 shadow-sm cursor-pointer transition-all">
+                        <div class="mt-0.5 shrink-0">
+                            <input checked=""
+                                class="h-5 w-5 appearance-none rounded-full border-2 border-silver bg-transparent text-transparent checked:border-forestGreen checked:bg-[image:--radio-dot-svg] focus:outline-none focus:ring-2 focus:ring-forestGreen/20 transition-all"
+                                name="question-14" type="radio" />
+                        </div>
+                        <div class="flex flex-col">
+                            <span class="text-forestGreen text-base font-medium leading-normal">Processes and tools over
+                                individuals and interactions</span>
+                        </div>
+                    </label>
+                    <label
+                        class="group flex items-start gap-4 rounded-xl border-2 border-transparent bg-white p-4 shadow-sm hover:border-forestGreen/20 cursor-pointer transition-all">
+                        <div class="mt-0.5 shrink-0">
+                            <input
+                                class="h-5 w-5 appearance-none rounded-full border-2 border-silver bg-transparent text-transparent checked:border-forestGreen checked:bg-[image:--radio-dot-svg] focus:outline-none focus:ring-2 focus:ring-forestGreen/20 transition-all"
+                                name="question-14" type="radio" />
+                        </div>
+                        <div class="flex flex-col">
+                            <span
+                                class="text-carbonBlack text-base font-normal leading-normal transition-colors">Responding
+                                to change over following a plan</span>
+                        </div>
+                    </label>
+                </div>
+            </div>
+            <footer
+                class="bg-white border-t border-gray-200 p-4 flex gap-4 z-20 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]">
+                <button
+                    class="flex-1 flex items-center justify-center gap-2 rounded-lg border border-silver bg-white px-6 py-3.5 text-base font-bold text-carbonBlack hover:bg-gray-50 active:scale-[0.98] transition-all">
+                    <span class="material-symbols-outlined text-[20px]">arrow_back</span>
+                    Previous
+                </button>
+                <button
+                    class="flex-1 flex items-center justify-center gap-2 rounded-lg bg-forestGreen px-6 py-3.5 text-base font-bold text-white shadow-md hover:brightness-90 hover:shadow-lg active:scale-[0.98] transition-all">
+                    Next
+                    <span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+                </button>
+            </footer>
+        </main>
+    </div>
+
+</body>
+
+</html>

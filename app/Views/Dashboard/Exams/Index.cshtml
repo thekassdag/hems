@@ -1,0 +1,128 @@
+@model IEnumerable<HMS.Models.Exam>
+
+@{
+    ViewData["Title"] = "Exams";
+    var pageNumber = ViewBag.PageNumber;
+    var totalPages = ViewBag.TotalPages;
+    var hasPreviousPage = ViewBag.HasPreviousPage;
+    var hasNextPage = ViewBag.HasNextPage;
+}
+
+<h1>Exams</h1>
+
+<p>
+    <a asp-action="Create">Create New Exam</a>
+</p>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExamCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DurationMinutes)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StartTime)
+            </th>
+            <th>
+                Finished
+            </th>
+            <th>
+                Coordinator
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsActive)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Batch)
+            </th>
+            <th>
+                Topics
+            </th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ExamCode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DurationMinutes) min
+                </td>
+                <td>
+                    @(item.StartTime.HasValue ? item.StartTime.Value.ToString("yyyy-MM-dd HH:mm") : "N/A")
+                </td>
+                <td>
+                    @{
+                        var isFinished = item.StartTime.HasValue && DateTime.UtcNow > item.StartTime.Value.AddMinutes(item.DurationMinutes);
+                    }
+                    @(isFinished ? "Yes" : "No")
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.User!.FullName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsActive)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Batch)
+                </td>
+                <td>
+                    @if (item.ExamTopics != null && item.ExamTopics.Any())
+                    {
+                        @string.Join(", ", item.ExamTopics.Select(et => et.Topic?.Title))
+                    }
+                    else
+                    {
+                        <p>No topics assigned.</p>
+                    }
+                </td>
+                <td>
+                    <div class="d-flex flex-column gap-2">
+                        <div class="btn-group btn-group-sm" role="group" aria-label="Exam Actions">
+                            @if (!item.StartTime.HasValue)
+                            {
+                                <form asp-action="StartExamNow" asp-route-id="@item.Id" method="post">
+                                    <button type="submit" class="btn btn-success">Start Exam</button>
+                                </form>
+                            }
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary">Edit Exam</a>
+                            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-secondary">Details Exam</a>
+                            @if (User.IsInRole("SuperAdmin"))
+                            {
+                                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete Exam</a>
+                            }
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<nav aria-label="Page navigation example">
+    <ul class="pagination">
+        <li class="page-item @(hasPreviousPage ? "" : "disabled")">
+            <a class="page-link" asp-action="Index" asp-route-pageNumber="@(pageNumber - 1)">Previous</a>
+        </li>
+        @for (int i = 1; i <= totalPages; i++)
+        {
+            <li class="page-item @(i == pageNumber ? "active" : "")">
+                <a class="page-link" asp-action="Index" asp-route-pageNumber="@i">@i</a>
+            </li>
+        }
+        <li class="page-item @(hasNextPage ? "" : "disabled")">
+            <a class="page-link" asp-action="Index" asp-route-pageNumber="@(pageNumber + 1)">Next</a>
+        </li>
+    </ul>
+</nav>

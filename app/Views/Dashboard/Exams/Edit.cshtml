@@ -1,0 +1,93 @@
+@model HMS.Models.Exam
+
+@{
+    ViewData["Title"] = "Edit Exam";
+}
+
+<h1>Edit Exam</h1>
+
+<h4>Exam</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="CreatedAt" />
+            <div class="form-group">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <textarea asp-for="Description" class="form-control"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DurationMinutes" class="control-label"></label>
+                <input asp-for="DurationMinutes" class="form-control" />
+                <span asp-validation-for="DurationMinutes" class="text-danger"></span>
+            </div>
+
+            @if (!Model.StartTime.HasValue)
+            {
+                <div class="form-group">
+                    <form asp-action="StartExamNow" asp-route-id="@Model.Id" method="post">
+                        <button type="submit" class="btn btn-success">Start Exam Now</button>
+                    </form>
+                </div>
+            }
+            else
+            {
+                <div class="form-group">
+                    <label class="control-label">Exam Started At</label>
+                    <input type="text" class="form-control" value="@Model.StartTime.Value.ToString("yyyy-MM-dd HH:mm")" readonly />
+                    <button type="button" class="btn btn-info mt-2" onclick="toggleStartTimeEdit()">Change Start Time</button>
+                </div>
+                <div class="form-group" id="startTimeEditGroup" style="display:none;">
+                    <label asp-for="StartTime" class="control-label"></label>
+                    <input asp-for="StartTime" class="form-control" type="datetime-local" value="@(Model.StartTime.HasValue ? Model.StartTime.Value.ToString("yyyy-MM-ddTHH:mm") : "")" />
+                    <span asp-validation-for="StartTime" class="text-danger"></span>
+                </div>
+            }
+
+            <div class="form-group">
+                <label asp-for="UserId" class="control-label"></label>
+                <select asp-for="UserId" class="form-control" asp-items="@(new SelectList(ViewBag.Users, "Id", "FullName"))"></select>
+                <span asp-validation-for="UserId" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsActive" /> @Html.DisplayNameFor(model => model.IsActive)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="Batch" class="control-label"></label>
+                <input asp-for="Batch" class="form-control" />
+                <span asp-validation-for="Batch" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        function toggleStartTimeEdit() {
+            var startTimeEditGroup = document.getElementById("startTimeEditGroup");
+            if (startTimeEditGroup.style.display === "none") {
+                startTimeEditGroup.style.display = "block";
+            } else {
+                startTimeEditGroup.style.display = "none";
+            }
+        }
+    </script>
+}

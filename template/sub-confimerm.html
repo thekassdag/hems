@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html class="" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Final Submission Review - Haramaya University</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style type="text/tailwindcss">
+        :root {
+            --primary-forest: #03941f;
+            --bg-main: #fdfdfd;
+            --answered-green: #03941f;
+            --skipped-grey: #6b7280;
+            --flagged-yellow: #f59e0b;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+            background-color: var(--bg-main);
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#03941f",
+                        secondary: "#D97706",
+                        success: "#03941f",
+                        warning: "#F59E0B",
+                        danger: "#6b7280",
+                        "background-light": "#fdfdfd",
+                        "surface-light": "#FFFFFF",
+                        "border-light": "#E5E7EB"
+                    },
+                    fontFamily: {
+                        display: "Inter"
+                    }
+                }
+            }
+        };
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-[var(--bg-main)] text-gray-900 min-h-screen flex flex-col">
+<header class="bg-white shadow-sm sticky top-0 z-20 border-b border-gray-100 px-4 py-3 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-white p-0.5 shadow-sm overflow-hidden flex-shrink-0">
+<img alt="Haramaya University Logo" class="w-full h-full object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAuDS8hxm_4yuPgAxmdf30TEAcg0sp8lU95RpISjvJKvh8iMRBtji6k7KrxjpZG2oTvs4vwsgQRI3EqWRYrcjXlvgoh4QbLMZRmjKP8g8JAPb8hmRSVoCWqKCdnyYTkIu89sVpS_GWFZLtVkNx0VUTIR3SoHQQmVA7yZZXQxO_N_v8NObGH-Yn3LGxpOT9x4DspxixH4OEw8ps7--J4ZAUaDPBSKt05rl1sxuZys_eYxRhzvnfyXPlomhdiiiHeh4EdRC7W_-E-CZI"/>
+</div>
+<div>
+<h1 class="text-sm font-bold text-[var(--primary-forest)] leading-tight">Haramaya University</h1>
+<p class="text-[10px] text-gray-500 uppercase tracking-wide">Holistic Exam System</p>
+</div>
+</div>
+<button class="p-2 rounded-full hover:bg-gray-100 text-gray-500">
+<span class="material-symbols-outlined">account_circle</span>
+</button>
+</header>
+<main class="flex-grow px-4 py-6 max-w-lg mx-auto w-full space-y-6">
+<div class="bg-white rounded-2xl shadow-sm p-5 border border-gray-100">
+<div class="flex justify-between items-start mb-5">
+<div>
+<h2 class="text-lg font-semibold text-gray-900">Software Engineering</h2>
+<p class="text-sm text-gray-500">4th Year Holistic Exam</p>
+</div>
+<div class="bg-blue-50 text-blue-700 px-3 py-1 rounded-full text-xs font-semibold">
+                    1h 45m Left
+                </div>
+</div>
+<div class="grid grid-cols-3 gap-3 text-center">
+<div class="bg-green-50 p-3 rounded-xl border border-green-100">
+<div class="text-xl font-bold text-[var(--answered-green)]">42</div>
+<div class="text-[10px] text-gray-600 uppercase font-bold tracking-tight">Answered</div>
+</div>
+<div class="bg-gray-50 p-3 rounded-xl border border-gray-200">
+<div class="text-xl font-bold text-[var(--skipped-grey)]">5</div>
+<div class="text-[10px] text-gray-600 uppercase font-bold tracking-tight">Skipped</div>
+</div>
+<div class="bg-amber-50 p-3 rounded-xl border border-amber-100">
+<div class="text-xl font-bold text-[var(--flagged-yellow)]">3</div>
+<div class="text-[10px] text-gray-600 uppercase font-bold tracking-tight">Flagged</div>
+</div>
+</div>
+</div>
+<div class="flex space-x-2 overflow-x-auto hide-scrollbar pb-1">
+<button class="px-5 py-2.5 bg-[var(--primary-forest)] text-white rounded-full text-sm font-semibold whitespace-nowrap shadow-sm">
+                All Questions (50)
+            </button>
+<button class="px-5 py-2.5 bg-white border border-gray-200 text-gray-600 rounded-full text-sm font-medium whitespace-nowrap">
+                Unanswered (5)
+            </button>
+<button class="px-5 py-2.5 bg-white border border-gray-200 text-gray-600 rounded-full text-sm font-medium whitespace-nowrap">
+                Flagged (3)
+            </button>
+</div>
+<div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+<div class="p-4 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
+<h3 class="font-bold text-gray-800">Review Answers</h3>
+<span class="text-[10px] font-bold uppercase text-gray-400">Section 1: Core Fundamentals</span>
+</div>
+<div class="divide-y divide-gray-100 max-h-[380px] overflow-y-auto">
+<div class="group flex items-center justify-between p-4 hover:bg-gray-50 transition-colors cursor-pointer active:bg-gray-100">
+<div class="flex items-center gap-4">
+<span class="flex items-center justify-center w-8 h-8 rounded-full bg-gray-100 text-sm font-bold text-gray-600">1</span>
+<div>
+<p class="text-sm font-medium text-gray-900 line-clamp-1">What is the primary key in SQL?</p>
+<span class="text-[11px] text-[var(--answered-green)] font-semibold flex items-center gap-1 mt-0.5">
+<span class="material-symbols-outlined text-[14px]">check_circle</span> Answered
+                            </span>
+</div>
+</div>
+<span class="material-symbols-outlined text-gray-300">chevron_right</span>
+</div>
+<div class="group flex items-center justify-between p-4 hover:bg-amber-50/50 bg-amber-50/20 transition-colors cursor-pointer active:bg-amber-100/50">
+<div class="flex items-center gap-4">
+<span class="flex items-center justify-center w-8 h-8 rounded-full bg-white border border-amber-200 text-sm font-bold text-amber-600">2</span>
+<div>
+<p class="text-sm font-medium text-gray-900 line-clamp-1">Explain the MVC architecture...</p>
+<span class="text-[11px] text-amber-600 font-semibold flex items-center gap-1 mt-0.5">
+<span class="material-symbols-outlined text-[14px]">flag</span> Flagged for Review
+                            </span>
+</div>
+</div>
+<span class="material-symbols-outlined text-gray-300">chevron_right</span>
+</div>
+<div class="group flex items-center justify-between p-4 hover:bg-gray-100 bg-gray-50/30 transition-colors cursor-pointer active:bg-gray-200">
+<div class="flex items-center gap-4">
+<span class="flex items-center justify-center w-8 h-8 rounded-full bg-white border border-gray-300 text-sm font-bold text-gray-500">3</span>
+<div>
+<p class="text-sm font-medium text-gray-900 line-clamp-1">Define Big O Notation.</p>
+<span class="text-[11px] text-gray-500 font-semibold flex items-center gap-1 mt-0.5">
+<span class="material-symbols-outlined text-[14px]">help</span> Skipped
+                            </span>
+</div>
+</div>
+<span class="material-symbols-outlined text-gray-300">chevron_right</span>
+</div>
+<div class="group flex items-center justify-between p-4 hover:bg-gray-50 transition-colors cursor-pointer">
+<div class="flex items-center gap-4">
+<span class="flex items-center justify-center w-8 h-8 rounded-full bg-gray-100 text-sm font-bold text-gray-600">4</span>
+<div>
+<p class="text-sm font-medium text-gray-900 line-clamp-1">Which sorting algorithm is fastest?</p>
+<span class="text-[11px] text-[var(--answered-green)] font-semibold flex items-center gap-1 mt-0.5">
+<span class="material-symbols-outlined text-[14px]">check_circle</span> Answered
+                            </span>
+</div>
+</div>
+<span class="material-symbols-outlined text-gray-300">chevron_right</span>
+</div>
+<div class="group flex items-center justify-between p-4 hover:bg-gray-50 transition-colors cursor-pointer">
+<div class="flex items-center gap-4">
+<span class="flex items-center justify-center w-8 h-8 rounded-full bg-gray-100 text-sm font-bold text-gray-600">5</span>
+<div>
+<p class="text-sm font-medium text-gray-900 line-clamp-1">What is polymorphism?</p>
+<span class="text-[11px] text-[var(--answered-green)] font-semibold flex items-center gap-1 mt-0.5">
+<span class="material-symbols-outlined text-[14px]">check_circle</span> Answered
+                            </span>
+</div>
+</div>
+<span class="material-symbols-outlined text-gray-300">chevron_right</span>
+</div>
+</div>
+<div class="p-3 bg-gray-50 border-t border-gray-100 text-center">
+<span class="text-[11px] font-bold text-gray-400 uppercase tracking-widest">Showing 5 of 50 Questions</span>
+</div>
+</div>
+<div class="flex items-start gap-3 p-4 bg-gray-50 rounded-2xl border border-gray-100 text-sm text-gray-600">
+<span class="material-symbols-outlined text-gray-400 flex-shrink-0 text-xl">info</span>
+<p class="text-xs leading-relaxed">Please review your selections. Once the exam is submitted, you will not be able to modify your answers.</p>
+</div>
+</main>
+<div class="sticky bottom-0 bg-white/95 backdrop-blur-md border-t border-gray-100 p-4 pb-8 shadow-[0_-4px_20px_-10px_rgba(0,0,0,0.1)] z-30">
+<div class="flex gap-3 max-w-lg mx-auto">
+<button class="flex-1 py-4 px-4 rounded-xl border border-gray-200 bg-white text-gray-700 font-bold text-sm active:scale-95 transition-transform flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-lg">arrow_back</span>
+                Edit
+            </button>
+<button class="flex-[2] py-4 px-4 rounded-xl bg-[var(--primary-forest)] text-white font-bold text-sm shadow-lg shadow-green-900/10 active:scale-[0.97] transition-all flex items-center justify-center gap-2">
+                Submit for Grading
+                <span class="material-symbols-outlined text-lg">check_circle</span>
+</button>
+</div>
+</div>
+
+</body></html>
